@@ -6,7 +6,7 @@ test ("Day3task", async({page}) => {
     await expect(page).toHaveTitle(/Test Login/)
     await page.locator('id=username').fill('student')
     await page.locator('id=password').fill('Password123')
-    await page.getByRole('button').click
+    await page.getByRole('button', {type: 'submit'} ).click
     await expect(page).toHaveTitle(/Logged In Successfully | Practice Test Automation/)
     }
 )
