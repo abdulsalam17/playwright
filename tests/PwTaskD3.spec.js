@@ -8,7 +8,8 @@ test ("Day3task", async({page}) => {
     await page.locator('id=username').fill('student')
     await page.locator('id=password').click
     await page.locator('id=password').fill('Password123')
-    await page.getByRole('button', {type: 'submit'} ).click
+    await page.getByRole('button', {name: 'Submit'} ).click
+   // await page.getByRole('button', {name: /Sub/} ).click
     await expect(page).toHaveTitle(/Logged In Successfully | Practice Test Automation/)    
 }
 )

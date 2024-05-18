@@ -6,7 +6,7 @@ await page.goto('https://the-internet.herokuapp.com/checkboxes')
 //await page.pause()
 //test.slow(); 
 await page.getByRole('checkbox').first().check()
-await expect(page.getByRole('checkbox').first()).toBeChecked()
+await expect(page.getByRole('checkbox').first().isChecked()).toBeTruthy()
 
 // Another way to get check box using xpath
 //await page.locator("//input[@type='checkbox'][1]").check()
