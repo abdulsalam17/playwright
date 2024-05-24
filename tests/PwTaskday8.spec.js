@@ -7,6 +7,7 @@ test('Task2', async ({ page }) => {
     await page.goto('https://selectorshub.com/xpath-practice-page/');
     await expect(page).toHaveTitle(/Xpath Practice Page | Shadow dom, nested shadow dom/);
 
+    await page.pause()
     await page.getByRole('textbox', { name: 'email' }).click()
     await page.getByRole('textbox', { name: 'email' }).fill('abdul@gmail.com')
 

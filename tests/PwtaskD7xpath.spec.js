@@ -1,3 +1,4 @@
+//https://www.softwaretestinghelp.com/xpath-axes-tutorial
 const {test, expect} = require('@playwright/test')
 
 test('xpath',async ({page}) => {
@@ -47,21 +48,27 @@ test('xpath2nd site',async ({page}) => {
 
 
     //xpath following 
-    let following='//input[@id="shub7"]/following::input[@name="Password"]'
-    await page.locatore(following).click()
-    await page.locator(following).fill('password')
+    // let following='//input[@id="shub7"]/following::input[@name="Password"]'
+    // await page.locator(following).click()
+    // await page.locator(following).fill('password')
 
-    // xpath following-sibling
-    let followingsib='//input[@id="shub7"]/following-sibling::input[@name="Password"]'
-    await page.locator(followingsib).click()
-    await page.locator(followingsib).fill("abdul@gmail.com")
+    // // xpath following-sibling
+    // let followingsib='//input[@id="shub7"]/following-sibling::input[@name="Password"]'
+    // await page.locator(followingsib).click()
+    // await page.locator(followingsib).fill("abdul@gmail.com")
 
     //XPath using combination of parent and following-sibling axes
-    let parentfollowing='//div[@class="userform"]/descendant::input/preceding-sibling::input[@name="company"]'
-    await page.locator(parentfollowing).fill("company name")
+    // let parentfollowing='//div[@class="userform"]/descendant::input/preceding-sibling::input[@name="company"]'
+    // await page.locator(parentfollowing).fill("company name")
 
-    //XPath using combination of ancestor and following axes
-    let ancestorefollowing='//input[@id="shub7"]/ancestor::div/following::input[@name="chkSelectRow[]" and @value="14"]'
-    await page.locator(ancestorefollowing).check()
+    // //XPath using combination of ancestor and following axes
+    // let ancestorefollowing='//input[@id="shub7"]/ancestor::div/following::input[@name="chkSelectRow[]" and @value="14"]'
+    // await page.locator(ancestorefollowing).check()
+    
+////div[@class="Mammal"]/descendant::div/preceding-sibling::div
+
+
+    let precedingchild='//td[normalize-space()="Garry.White"]/preceding-sibling::td/child::input'
+    await page.locator(precedingchild).check()
 
 })
