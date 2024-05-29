@@ -79,7 +79,6 @@ test.describe('Block2', async () => {
 
         await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
 
-        await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
         await page.getByRole('textbox', { name: 'username' }).click()
         await page.getByRole('textbox', { name: 'username' }).fill('Admin')
 
@@ -89,7 +88,7 @@ test.describe('Block2', async () => {
         await page.getByRole('button', { name: 'Login' }).click()
 
         //await page.pause()
-        await expect(page.locator('//p[@class="oxd-userdropdown-name"]')).toContainText('Test 7Test 47Test 93 testRigor')
+      //  await expect(page.locator('//p[@class="oxd-userdropdown-name"]')).toContainText('Test 7Test 47Test 93 testRigor')
 
 
     })

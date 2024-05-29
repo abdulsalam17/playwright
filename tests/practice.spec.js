@@ -17,8 +17,6 @@ test('practice', async ({ page }) => {
     await expect(page.locator('//p[@class="oxd-userdropdown-name"]')).toContainText('Test 7Test 47Test 93 testRigor')
   
   
-    await page.locator('//a[@class="oxd-userdropdown-link"]/following::a[3][@class="oxd-userdropdown-link"]]').click()
-
    
 await page.getByRole('link',{name:'Logout'}).click()
     // Get radio by id
