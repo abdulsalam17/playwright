@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test")
 
 test.describe('Block1', async () => {
 
-    test('User Registration Suite', async ({ page }) => {
+    test.only('User Registration Suite', async ({ page }) => {
 
         await page.goto('https://ecommerce-playground.lambdatest.io/');
         await expect(page).toHaveTitle('Your Store');
@@ -19,17 +19,14 @@ test.describe('Block1', async () => {
 
         await page.locator('id=input-lastname').click()
         await page.locator('id=input-lastname').fill('Salam')
-
+        
         // Returns random number 0-100
         let ran = Math.floor(Math.random() * 1000)
         console.log("Random int " + ran)
 
         await page.getByPlaceholder('E-Mail').click()
-        //  await page.getByPlaceholder('E-Mail').fill('abdul' + ran + '@gmail.com')
-        await page.getByPlaceholder('E-Mail').fill('a1241ddfb@gmail.com')
-
-
-
+        await page.getByPlaceholder('E-Mail').fill('abdul' + ran + '@gmail.com')
+       
         await page.getByPlaceholder('Telephone').click()
         await page.getByPlaceholder('Telephone').fill('923225252555')
 
@@ -54,13 +51,72 @@ test.describe('Block1', async () => {
             await page.getByRole('button', { name: 'Continue' }).click()
         }
 
+        // First and last name error checks
+        await expect(page.getByText(/First Name must be between 1 and 32 characters!/)).toBeHidden()
+        await expect(page.getByText(/Last Name must be between 1 and 32 characters!/)).toBeHidden()
+        
         await expect(page.getByRole('heading', { name: 'Your Account Has Been Created!' })).toBeVisible()
-        // await page.pause()
-
+   
         await expect(page.getByRole('link', { name: 'Continue' })).toBeVisible()
         await page.getByRole('link', { name: 'Continue' }).click()
 
         await page.waitForTimeout(2000)
     })
 
+
+    test("BVA Firstname", async ({ page }) => {
+
+        await page.goto('https://ecommerce-playground.lambdatest.io/');
+        await expect(page).toHaveTitle('Your Store');
+
+        await page.getByRole('button', { name: /My account/ }).hover()
+
+        await expect(page.getByRole('link', { name: 'Register' })).toBeVisible()
+        await page.getByRole('link', { name: 'Register' }).click()
+
+        await expect(page.getByRole('heading', { name: 'Register Account' })).toBeVisible()
+
+        await page.getByPlaceholder('First Name').click()
+        await page.getByPlaceholder('First Name').fill('')
+        await page.getByRole('button', { name: 'Continue' }).click()
+
+        // Min value check
+        await expect(page.getByText(/First Name must be between 1 and 32 characters!/)).toBeVisible()
+
+        await page.getByPlaceholder('First Name').clear()
+        await page.getByPlaceholder('First Name').fill('assdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsw')
+        await page.getByRole('button', { name: 'Continue' }).click()
+
+        // Max value check
+        await expect(page.getByText(/First Name must be between 1 and 32 characters!/)).toBeVisible()
+    })
+
+    test ("BVA Lastname", async ({ page }) => {
+
+        await page.goto('https://ecommerce-playground.lambdatest.io/');
+        await expect(page).toHaveTitle('Your Store');
+
+        await page.getByRole('button', { name: /My account/ }).hover()
+
+        await expect(page.getByRole('link', { name: 'Register' })).toBeVisible()
+        await page.getByRole('link', { name: 'Register' }).click()
+
+        await expect(page.getByRole('heading', { name: 'Register Account' })).toBeVisible()
+
+        await page.getByPlaceholder('Password', { exact: true }).click()
+        await page.getByPlaceholder('Password', { exact: true }).fill('')
+
+        await page.getByRole('button', { name: 'Continue' }).click()
+
+        // Min value check
+        await expect(page.getByText(/Last Name must be between 1 and 32 characters!/)).toBeVisible()
+
+        await page.getByPlaceholder('Password', { exact: true }).click()
+        await page.getByPlaceholder('Password', { exact: true }).fill('12322211111232111111111111111232131231')
+        await page.getByRole('button', { name: 'Continue' }).click()
+
+        // Max value check
+        await expect(page.getByText(/Last Name must be between 1 and 32 characters!/)).toBeVisible()
+        
+    })
 })
