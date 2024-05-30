@@ -25,7 +25,10 @@ test.describe('Block1', async () => {
         console.log("Random int " + ran)
 
         await page.getByPlaceholder('E-Mail').click()
-        await page.getByPlaceholder('E-Mail').fill('abdul' + ran + '@gmail.com')
+        //  await page.getByPlaceholder('E-Mail').fill('abdul' + ran + '@gmail.com')
+        await page.getByPlaceholder('E-Mail').fill('a1241ddfb@gmail.com')
+
+
 
         await page.getByPlaceholder('Telephone').click()
         await page.getByPlaceholder('Telephone').fill('923225252555')
@@ -42,6 +45,14 @@ test.describe('Block1', async () => {
         await expect(page.getByText('I have read and agree').isChecked()).toBeTruthy()
 
         await page.getByRole('button', { name: 'Continue' }).click()
+
+        /////Check if email is already registered
+
+        if (await page.getByText(/ Warning: E-Mail Address is already registered!/).isVisible()) {
+            await page.getByPlaceholder('E-Mail').clear()
+            await page.getByPlaceholder('E-Mail').fill('abdul' + ran + '@gmail.com')
+            await page.getByRole('button', { name: 'Continue' }).click()
+        }
 
         await expect(page.getByRole('heading', { name: 'Your Account Has Been Created!' })).toBeVisible()
         // await page.pause()
