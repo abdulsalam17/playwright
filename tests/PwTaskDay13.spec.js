@@ -17,7 +17,7 @@ test.describe('Block1', async () => {
 
     })
 
-    test('User Registration Suite', async ({ page }) => {
+    test.only('User Registration Suite', async ({ page }) => {
 
         // await page.goto('https://ecommerce-playground.lambdatest.io/');
         // await expect(page).toHaveTitle('Your Store');
@@ -38,9 +38,11 @@ test.describe('Block1', async () => {
         // Returns random number 0-100
         let ran = Math.floor(Math.random() * 1000)
         console.log("Random int " + ran)
+        let email='abdul' + ran + '@gmail.com'
 
         await page.getByPlaceholder('E-Mail').click()
-        await page.getByPlaceholder('E-Mail').fill('abdul' + ran + '@gmail.com')
+        await page.getByPlaceholder('E-Mail').fill(email)
+        console.log(email)
 
         await page.getByPlaceholder('Telephone').click()
         await page.getByPlaceholder('Telephone').fill('923225252555')
@@ -102,7 +104,7 @@ test.describe('Block1', async () => {
 
     })
 
-    test.only("BVA Password", async ({ page }) => {
+    test ("BVA Password", async ({ page }) => {
     
         // Min value check
         await page.getByPlaceholder('Password', { exact: true }).click()
