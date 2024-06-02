@@ -29,7 +29,7 @@ test.describe('Login Test Suite', async () => {
 
         await expect(page.getByText(' Edit your account information')).toBeVisible()
 
-        await page.waitForTimeout(2000)
+       // await page.waitForTimeout(2000)
     })
 
 
@@ -41,7 +41,7 @@ test.describe('Login Test Suite', async () => {
         await page.getByRole('button', { name: 'Login' }).click()
         await expect(page.getByText('Warning: No match for E-Mail Address and/or Password')).toBeVisible()
 
-
+        console.log("Test")
     })
 
     test('Login without username and with password', async ({ page }) => {
