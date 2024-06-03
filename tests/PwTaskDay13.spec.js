@@ -1,11 +1,13 @@
 const { test, expect } = require("@playwright/test")
 
+import regdata from "../data/register"
+
 test.describe('Block1', async () => {
 
     test.beforeEach(async ({page}) => {
         console.log('Inside before all == inside describe')
         
-        await page.goto('https://ecommerce-playground.lambdatest.io/');
+        await page.goto(regdata.URL);
         await expect(page).toHaveTitle('Your Store');
 
         await page.getByRole('button', { name: /My account/ }).hover()
@@ -30,10 +32,10 @@ test.describe('Block1', async () => {
         // await expect(page.getByRole('heading', { name: 'Register Account' })).toBeVisible()
         // await page.pause()
         await page.getByPlaceholder('First Name').click()
-        await page.getByPlaceholder('First Name').fill('Abdul')
+        await page.getByPlaceholder('First Name').fill(regdata.FirstName)
 
         await page.locator('id=input-lastname').click()
-        await page.locator('id=input-lastname').fill('Salam')
+        await page.locator('id=input-lastname').fill(regdata.LastName)
 
         // Returns random number 0-100
         let ran = Math.floor(Math.random() * 1000)
@@ -45,13 +47,13 @@ test.describe('Block1', async () => {
         console.log(email)
 
         await page.getByPlaceholder('Telephone').click()
-        await page.getByPlaceholder('Telephone').fill('923225252555')
+        await page.getByPlaceholder('Telephone').fill(regdata.Phone)
 
         await page.getByPlaceholder('Password', { exact: true }).click()
-        await page.getByPlaceholder('Password', { exact: true }).fill('123456')
+        await page.getByPlaceholder('Password', { exact: true }).fill(regdata.password)
 
         await page.getByPlaceholder('Password Confirm').click()
-        await page.getByPlaceholder('Password Confirm').fill('123456')
+        await page.getByPlaceholder('Password Confirm').fill(regdata.confirmpass)
 
         await page.locator('//label[@class="custom-control-label" and @for="input-newsletter-yes"]').check()
 

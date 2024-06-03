@@ -1,11 +1,13 @@
 const { test, expect } = require("@playwright/test")
 
+import logindata from "../data/login"
+
 test.describe('Login Test Suite', async () => {
 
     test.beforeEach(async ({ page }) => {
         console.log('Inside beforeeach describe')
 
-        await page.goto('https://ecommerce-playground.lambdatest.io/');
+        await page.goto(logindata[0].URL);
         await expect(page).toHaveTitle('Your Store');
 
         await page.getByRole('button', { name: /My account/ }).hover()
@@ -17,13 +19,13 @@ test.describe('Login Test Suite', async () => {
 
     })
 
-    test('Login with valid credentials', async ({ page }) => {
+    test ('Login with valid credentials', async ({ page }) => {
 
         await page.getByPlaceholder('E-Mail Address').click()
-        await page.getByPlaceholder('E-Mail Address').fill('abdul422@gmail.com')
+        await page.getByPlaceholder('E-Mail Address').fill(logindata[0].username)
 
         await page.getByPlaceholder(/Password/, { exact: true }).click()
-        await page.getByPlaceholder(/Password/).fill('123456')
+        await page.getByPlaceholder(/Password/).fill(logindata[0].password)
 
         await page.getByRole('button', { name: 'Login' }).click()
 
@@ -36,7 +38,7 @@ test.describe('Login Test Suite', async () => {
     test('Login with username and without password', async ({ page }) => {
 
         await page.getByPlaceholder('E-Mail Address').click()
-        await page.getByPlaceholder('E-Mail Address').fill('abdul422@gmail.com')
+        await page.getByPlaceholder('E-Mail Address').fill(logindata[0].username)
 
         await page.getByRole('button', { name: 'Login' }).click()
         await expect(page.getByText('Warning: No match for E-Mail Address and/or Password')).toBeVisible()
@@ -47,7 +49,7 @@ test.describe('Login Test Suite', async () => {
     test('Login without username and with password', async ({ page }) => {
 
         await page.getByPlaceholder(/Password/, { exact: true }).click()
-        await page.getByPlaceholder(/Password/).fill('123456')
+        await page.getByPlaceholder(/Password/).fill(logindata[0].password)
 
         await page.getByRole('button', { name: 'Login' }).click()
 
