@@ -4,10 +4,10 @@ import regdata from "../data/register"
 
 test.describe('Block1', async () => {
 
-    test.beforeEach(async ({page}) => {
+    test.beforeEach(async ({ page }) => {
         console.log('Inside before all == inside describe')
-        
-        await page.goto(regdata.URL);
+
+        await page.goto(regdata[0].URL);
         await expect(page).toHaveTitle('Your Store');
 
         await page.getByRole('button', { name: /My account/ }).hover()
@@ -21,39 +21,29 @@ test.describe('Block1', async () => {
 
     test.only('User Registration Suite', async ({ page }) => {
 
-        // await page.goto('https://ecommerce-playground.lambdatest.io/');
-        // await expect(page).toHaveTitle('Your Store');
-
-        // await page.getByRole('button', { name: /My account/ }).hover()
-
-        // await expect(page.getByRole('link', { name: 'Register' })).toBeVisible()
-        // await page.getByRole('link', { name: 'Register' }).click()
-
-        // await expect(page.getByRole('heading', { name: 'Register Account' })).toBeVisible()
-        // await page.pause()
         await page.getByPlaceholder('First Name').click()
-        await page.getByPlaceholder('First Name').fill(regdata.FirstName)
+        await page.getByPlaceholder('First Name').fill(regdata[0].FirstName)
 
         await page.locator('id=input-lastname').click()
-        await page.locator('id=input-lastname').fill(regdata.LastName)
+        await page.locator('id=input-lastname').fill(regdata[0].LastName)
 
         // Returns random number 0-100
         let ran = Math.floor(Math.random() * 1000)
         console.log("Random int " + ran)
-        let email='abdul' + ran + '@gmail.com'
+        let email = 'abdul' + ran + '@gmail.com'
 
         await page.getByPlaceholder('E-Mail').click()
         await page.getByPlaceholder('E-Mail').fill(email)
         console.log(email)
 
         await page.getByPlaceholder('Telephone').click()
-        await page.getByPlaceholder('Telephone').fill(regdata.Phone)
+        await page.getByPlaceholder('Telephone').fill(regdata[0].Phone)
 
         await page.getByPlaceholder('Password', { exact: true }).click()
-        await page.getByPlaceholder('Password', { exact: true }).fill(regdata.password)
+        await page.getByPlaceholder('Password', { exact: true }).fill(regdata[0].password)
 
         await page.getByPlaceholder('Password Confirm').click()
-        await page.getByPlaceholder('Password Confirm').fill(regdata.confirmpass)
+        await page.getByPlaceholder('Password Confirm').fill(regdata[0].confirmpass)
 
         await page.locator('//label[@class="custom-control-label" and @for="input-newsletter-yes"]').check()
 
@@ -106,8 +96,8 @@ test.describe('Block1', async () => {
 
     })
 
-    test ("BVA Password", async ({ page }) => {
-    
+    test("BVA Password", async ({ page }) => {
+
         // Min value check
         await page.getByPlaceholder('Password', { exact: true }).click()
         await page.getByPlaceholder('Password', { exact: true }).fill('')
