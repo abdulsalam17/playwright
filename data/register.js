@@ -6,7 +6,7 @@ module.exports = [
         LastName: "Salam1",
         password: "123456",
         confirmpass: "123456",
-        Phone: "9230055565556"
+        Phone: "9230055565556",
     },
 
     {

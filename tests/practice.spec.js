@@ -1,38 +1,30 @@
-const { test, expect } = require('@playwright/test')
+const { test, expect, chromium } = require('@playwright/test')
 
-test('practice', async ({ page }) => {
+import logindata from "..//data/login"
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+test.describe("D1", async () => {
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
-    await page.getByRole('textbox', {name: 'username'}).click()
-    await page.getByRole('textbox', {name: 'username'}).fill('Admin')
+    let browser;
+    let context;
+    let loginpage;
 
-    await page.getByPlaceholder('Password').click()
-    await page.getByPlaceholder('Password').fill('admin123')
+    test.beforeAll('beforeall', async () => {
 
-    await page.getByRole('button', {name:'Login'}).click()
+        browser = await chromium.launch({ headless: false })
+        context = await browser.newContext()
+        loginpage = await context.newPage()
 
-    //await page.pause()
-    await expect(page.locator('//p[@class="oxd-userdropdown-name"]')).toContainText('Test 7Test 47Test 93 testRigor')
-  
-  
-   
-await page.getByRole('link',{name:'Logout'}).click()
-    // Get radio by id
-    // await page.locator('id=radioId').check()
-
-    // Get radio by xpath
-    // await page.locator("//input[@class='radioclass']").check()
-
-    // // Get radio by xpath combination
-    // page.locator('//input[@type="radio" and @value="Not sure"]').check()
-
-    // await page.locator('//input[@type="radio" and @value="No"][3]').check()
+    })
 
 
-    // Get by value
-   // await page.locator("input[value='Radio1']").check()
+    for (let i = 0; i < logindata.length; i++) {
 
-   await page.waitForTimeout(3000)
+        test(`${i}`, async () => {
+
+            await loginpage.goto('https://ecommerce-playground.lambdatest.io/index.php?route=account/register')
+        })
+        await loginpage.getByRole('textbox', {name:'First Name'}).click()
+        await loginpage.getByRole('textbox', {name:'First Name'}).fill(logindata[i].username)
+    }
+    
 })

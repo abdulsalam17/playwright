@@ -16,7 +16,7 @@ test.describe('Block1', async () => {
         await page.getByRole('link', { name: 'Register' }).click()
 
         await expect(page.getByRole('heading', { name: 'Register Account' })).toBeVisible()
-
+      
     })
 
     test.only('User Registration Suite', async ({ page }) => {

@@ -17,12 +17,14 @@ test.describe('Login Test Suite', async () => {
         await expect(page.getByRole('heading', { name: 'Returning Customer' })).toBeVisible()
     })
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <logindata.length; i++) {
+        
 
         test(`Login with user ${i}`, async ({ page }) => {
 
-            await page.getByPlaceholder('E-Mail Address').click()
-            await page.getByPlaceholder('E-Mail Address').fill(logindata[i].username)
+          await page.getByPlaceholder('E-Mail Address').click()
+           
+           await page.getByPlaceholder('E-Mail Address').fill(logindata[i].username)
 
             await page.getByPlaceholder(/Password/, { exact: true }).click()
             await page.getByPlaceholder(/Password/).fill(logindata[i].password)
