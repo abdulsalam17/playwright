@@ -9,12 +9,9 @@ test.describe('Block1', async () => {
 
         await page.goto(regdata[0].URL);
         await expect(page).toHaveTitle('Your Store');
-
         await page.getByRole('button', { name: /My account/ }).hover()
-
         await expect(page.getByRole('link', { name: 'Register' })).toBeVisible()
         await page.getByRole('link', { name: 'Register' }).click()
-
         await expect(page.getByRole('heading', { name: 'Register Account' })).toBeVisible()
       
     })
