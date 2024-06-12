@@ -1,4 +1,3 @@
-const BasePage = require("./BasePage")
 import regdata from "../data/register"
 const { expect } = require("@playwright/test")
 
@@ -69,7 +68,6 @@ class Registerpageclass {
         await expect(this.Accountcreated_heading).toBeVisible()
         await expect(this.Continue_accountcreated).toBeVisible()
         await this.Continue_accountcreated.click()
-
 
     }
 

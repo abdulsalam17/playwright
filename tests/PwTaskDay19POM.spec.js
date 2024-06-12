@@ -4,8 +4,8 @@ import regdata from "../data/register"
 import regpage from "../pages/RegisterPage"
 
 test.describe('Block1', async () => {
-   
-        test.beforeEach(async ({ page }) => {
+
+        test.beforeEach(async () => {
         console.log('Inside before each')
 
         await page.goto(regdata[0].URL);
