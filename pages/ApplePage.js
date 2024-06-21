@@ -25,10 +25,20 @@ class ApplePageclass extends LoginPage {
 
         this.Gridview = page.locator('//button[@id="grid-view"]')
         this.Listview = page.locator('//button[@id="list-view"]')
+
+      //  const Showlimitvalue= page.locator('#input-limit-212433').textContent()
+      //  this.SLV=Showlimitvalue.textContent()
+   
        // this.Showlimit = page.selectOption('#input-limit-212433', '15')
-        // this.Sortdrop = page.selectOption('#input-sort-212434', 'Default')
+        this.Sortdrop = page.locator('#input-sort-212434')
+      //  this.Sortdrop = page.selectOption('#input-sort-212434', 'Default')
         this.Productcompare = page.getByRole('link', { name: 'Product Compare (0)' })
 
+        /// Assignment # 21 
+        this.limitdropdown=page.locator('#input-limit-212433')
+        this.dropdownlocator=page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]')
+
+        
     }
 
     async AppleSection() {
@@ -76,18 +86,62 @@ class ApplePageclass extends LoginPage {
         await expect(this.Listview).toBeVisible()
     }
 
+    async showlimitvalidation()
+    {
+        let status=false
+        let arr=[15,25,50,75,100]
+        for(let i=0; i<arr.length; i++)
+            {
+                    if (Showlimitvalue.includes(arr[i]))
+                    {
+                        status=true
+                    }
+
+                    else
+                    {
+                        status=false                       
+                        break
+                    }
+
+            }
+            await expect(status).toBeTruthy()
+        console.log(this.Showlimitvalue)
+    }
+
     // async Showlimitection() {
     //     await expect(this.Showlimit).toBeTruthy()
     // }
 
-    // async Sortdropsection() {
-    //     await expect(this.Sortdrop).toBeTruthy()
-    // }
+    async Sortdropsection() {
+        await expect(this.Sortdrop.selectOption('Default')).toBeTruthy()
+    }
 
     async Productcomparesection() {
         await expect(this.Productcompare).toBeVisible()
     }
 
+    /////////// Assignment #21 ////////
+
+    async Limitdropdowntask15() {
+        await this.limitdropdown.selectOption('15')
+        await expect(this.dropdownlocator).toHaveCount(15)
+       
+    }
+
+    async Limitdropdowntask25() {
+        await this.limitdropdown.selectOption('25')
+        await expect(this.dropdownlocator).toHaveCount(25)
+    }
+
+    async Limitdropdowntask50() {
+        await this.limitdropdown.selectOption('50')
+        await expect(this.dropdownlocator).toHaveCount(42)
+    }
+
+    async Limitdropdowntask100() {
+        await this.limitdropdown.selectOption('100')
+        await expect(this.dropdownlocator).toHaveCount(42)
+    }
 
 }
 module.exports = ApplePageclass
