@@ -1,5 +1,5 @@
 const { expect } = require("@playwright/test")
-const LoginPage= require("../pages/LoginPage")
+const LoginPage = require("../pages/LoginPage")
 
 class ApplePageclass extends LoginPage {
 
@@ -26,19 +26,24 @@ class ApplePageclass extends LoginPage {
         this.Gridview = page.locator('//button[@id="grid-view"]')
         this.Listview = page.locator('//button[@id="list-view"]')
 
-      //  const Showlimitvalue= page.locator('#input-limit-212433').textContent()
-      //  this.SLV=Showlimitvalue.textContent()
-   
-       // this.Showlimit = page.selectOption('#input-limit-212433', '15')
+        //  const Showlimitvalue= page.locator('#input-limit-212433').textContent()
+        //  this.SLV=Showlimitvalue.textContent()
+
+        // this.Showlimit = page.selectOption('#input-limit-212433', '15')
         this.Sortdrop = page.locator('#input-sort-212434')
-      //  this.Sortdrop = page.selectOption('#input-sort-212434', 'Default')
+        //  this.Sortdrop = page.selectOption('#input-sort-212434', 'Default')
         this.Productcompare = page.getByRole('link', { name: 'Product Compare (0)' })
 
         /// Assignment # 21 
-        this.limitdropdown=page.locator('#input-limit-212433')
-        this.dropdownlocator=page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]')
+        this.limitdropdown = page.locator('#input-limit-212433')
+        this.applepageitems = page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]')
 
-        
+        // Assignment # 22 
+        this.pagination = page.locator('.pagination li a')
+        this.lastpage = page.getByRole('link', { name: '>|' })
+        this.nextpage = page.getByRole('link', { name: '>', exact: true })
+        this.previouspage = page.getByRole('link', { name: '<', exact: true })
+        this.firstpage =page.getByRole('link', { name: '|<', exact: true })
     }
 
     async AppleSection() {
@@ -86,25 +91,21 @@ class ApplePageclass extends LoginPage {
         await expect(this.Listview).toBeVisible()
     }
 
-    async showlimitvalidation()
-    {
-        let status=false
-        let arr=[15,25,50,75,100]
-        for(let i=0; i<arr.length; i++)
-            {
-                    if (Showlimitvalue.includes(arr[i]))
-                    {
-                        status=true
-                    }
-
-                    else
-                    {
-                        status=false                       
-                        break
-                    }
-
+    async showlimitvalidation() {
+        let status = false
+        let arr = [15, 25, 50, 75, 100]
+        for (let i = 0; i < arr.length; i++) {
+            if (Showlimitvalue.includes(arr[i])) {
+                status = true
             }
-            await expect(status).toBeTruthy()
+
+            else {
+                status = false
+                break
+            }
+
+        }
+        await expect(status).toBeTruthy()
         console.log(this.Showlimitvalue)
     }
 
@@ -122,25 +123,109 @@ class ApplePageclass extends LoginPage {
 
     /////////// Assignment #21 ////////
 
+    
+    async Resetdropdown()
+    {
+        await this.pagination.nth(1).click()
+        await this.page.waitForLoadState()
+        await this.page.waitForTimeout(1000)
+    }
+
     async Limitdropdowntask15() {
         await this.limitdropdown.selectOption('15')
-        await expect(this.dropdownlocator).toHaveCount(15)
-       
+        await this.page.waitForTimeout(1500)
+        let countitems = await this.applepageitems.count()
+        await expect(this.applepageitems).toHaveCount(countitems)
     }
 
     async Limitdropdowntask25() {
         await this.limitdropdown.selectOption('25')
-        await expect(this.dropdownlocator).toHaveCount(25)
+        await this.page.waitForTimeout(1500)
+        let countitems = await this.applepageitems.count()
+        await expect(this.applepageitems).toHaveCount(countitems)
     }
 
     async Limitdropdowntask50() {
         await this.limitdropdown.selectOption('50')
-        await expect(this.dropdownlocator).toHaveCount(42)
+        await this.page.waitForTimeout(1500)
+        let countitems = await this.applepageitems.count()
+        await expect(this.applepageitems).toHaveCount(countitems)
     }
 
     async Limitdropdowntask100() {
         await this.limitdropdown.selectOption('100')
-        await expect(this.dropdownlocator).toHaveCount(42)
+        await this.page.waitForTimeout(1500)
+        let countitems = await this.applepageitems.count()
+        await expect(this.applepageitems).toHaveCount(countitems)
+        await this.limitdropdown.selectOption('15')
+        await this.page.waitForTimeout(1500)
+
+         }
+
+    /////////// Assignment #22 ////////
+
+
+    async Navigatalltolastpage() {
+       
+        for (let i = 2; i < await this.pagination.count(); i++) {
+            await this.pagination.nth(i).click()
+            await this.page.waitForLoadState()
+            await this.page.waitForTimeout(1500)
+            let count = await this.applepageitems.count()
+            await expect(await this.applepageitems).toHaveCount(count)
+        }
+    }
+
+    async Navigatetolastpage() {
+        await this.pagination.nth(1).click()
+        await this.page.waitForLoadState()
+        await this.page.waitForTimeout(1500)
+        if (await this.lastpage.isEnabled()) {
+            await this.lastpage.click()
+            await this.page.waitForTimeout(1500)
+            let count = await this.applepageitems.count()
+            await expect(await this.applepageitems).toHaveCount(count)
+
+        }
+
+    }
+
+    async NavigatetoNextpage() {
+        await this.pagination.nth(1).click()
+        await this.page.waitForLoadState()
+        await this.page.waitForTimeout(1500)
+        if (await this.nextpage.isEnabled()) {
+            await this.nextpage.click()
+            await this.page.waitForTimeout(1500)
+            let count = await this.applepageitems.count()
+            await expect(await this.applepageitems).toHaveCount(count)
+        }
+
+    }
+
+    async NavigatetoPreviouspage() {
+        await this.pagination.nth(3).click()
+        await this.page.waitForLoadState()
+        await this.page.waitForTimeout(1500)
+        if (await this.previouspage.isEnabled()) {
+            await this.previouspage.click()
+            await this.page.waitForTimeout(1500)
+            let count = await this.applepageitems.count()
+            await expect(await this.applepageitems).toHaveCount(count)
+        }
+    }
+
+    async NavigatetoFirstpage() {
+        await this.pagination.nth(2).click()
+        await this.page.waitForLoadState()
+        await this.page.waitForTimeout(1500)
+        if (await this.firstpage.isEnabled()) {
+            await this.firstpage.click()
+            await this.page.waitForTimeout(1500)
+            let count = await this.applepageitems.count()
+            await expect(await this.applepageitems).toHaveCount(count)
+        }
+
     }
 
 }

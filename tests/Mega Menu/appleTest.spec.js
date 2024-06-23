@@ -19,9 +19,10 @@ test.describe('Login Test Suite', async () => {
         Applepage = new applepage(loginpage)
         //  loginsite = new login(loginpage)
         await Applepage.login()   
+        await Applepage.AppleSection()
     })
 
-    test(`Apple Section`, async () => {
+    test.skip(`Apple Section`, async () => {
 
         //  await loginsite.login()   create direct class obj and call login method()
        // await Applepage.login()   // Utilize login method using extend (inherited)

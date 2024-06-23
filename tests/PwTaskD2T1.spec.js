@@ -1,10 +1,13 @@
 const { test, expect } = require('@playwright/test');
 const exp = require('constants');
+const helper= require('../libs/helper')
 
-test("Task1", async ({ page }) => {
+test.only ("Task1", async ({ page }) => {
 
-    await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8');
-    // await expect(page).toHaveTitle('Your Store');
+    await helper.gotopage(page)
+
+   // await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8');
+   //  await expect(page).toHaveTitle('Your Store');
     // await page.getByRole('button', { name: /Mega Menu/ }).hover()
 
     // await page.getByRole('listitem')
@@ -12,29 +15,94 @@ test("Task1", async ({ page }) => {
     //     .getByRole('link', { name: 'Apple', exact: true })
     //     .click()
 
-
     //   const option= page.locator('#input-limit-212433 option')
     //   await expect(option).toHaveCount(5)
 
+    const pages = await page.locator('.pagination li a')
+    console.log(await pages.count())
 
-    let arr = [15, 25, 50, 75, 100]
+    const applepageitems = await page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]')
+    let count
 
-console.log(arr[0])
+    for (let i = 2; i < await pages.count(); i++) {
 
-        await page.selectOption('#input-limit-212433', `$arr[1]`)
-     //   await page.locator('#input-limit-212433').selectOption(`$arr[1]`)
-        await page.waitForTimeout(2000)
-      //  await page.pause()
-      //  const option = await page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]').count()
-     //   console.log(option)
-        await expect(page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]'))
-        .toHaveCount(25)
-        
-      
-      
+        await pages.nth(i).click()
+        await page.waitForLoadState()
+        count = await applepageitems.count()
+        console.log(count)
+        await expect(await applepageitems).toHaveCount(count)
 
+    }
 
-
-    // await page.pause()
-    await page.waitForTimeout(500)
 })
+
+
+test ('Last page', async ({ page }) => {
+    await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8');
+
+    const applepageitems = await page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]')
+    let count
+
+    const last = await page.getByRole('link', { name: '>|' })
+    
+    if (await last.isEnabled()) {
+        await last.click()
+        await page.waitForTimeout(1500)
+        count = await applepageitems.count()
+        await expect(await applepageitems).toHaveCount(count)
+
+    }
+
+})
+
+test('Next page', async ({ page }) => {
+    await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8');
+
+    const next = await page.getByRole('link', { name: '>', exact: true })
+    if (await next.isEnabled()) {
+        await next.click()
+        await page.waitForTimeout(1500)
+    }
+
+})
+
+test('Previous page', async ({ page }) => {
+    await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8');
+
+    const pages = await page.locator('.pagination li a')
+    await pages.nth(2).click()
+
+    const previous = await page.getByRole('link', { name: '<', exact: true })
+    if (await previous.isEnabled()) {
+        await previous.click()
+        await page.waitForTimeout(1500)
+    }
+
+})
+
+test('First page', async ({ page }) => {
+    await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8');
+
+    const pages = await page.locator('.pagination li a')
+    await pages.nth(2).click()
+
+    const First = await page.getByRole('link', { name: '|<', exact: true })
+    if (await First.isEnabled()) {
+        await First.click()
+        await page.waitForTimeout(1500)
+    }
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+

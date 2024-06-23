@@ -1,55 +1,61 @@
-const { test, expect, chromium } = require("@playwright/test");
-import loginData from "../data/register";
-	
-test.describe("Register Suite", () => {
- let browser;
- let context;
- let regPage;
- test.beforeAll(async () => {
-   browser = await chromium.launch({ headless: false });
-   context = await browser.newContext();
-   regPage = await context.newPage();
+import { expect, test } from "@playwright/test";
 
-  
+
+test.describe.serial("Drop Down Test Suite", () => {
+
+ test("Basic Drag and drop", async ({ page }) => {
+   await page.goto("https://commitquality.com/practice-drag-and-drop");
+  await page.waitForTimeout(4000)
+    if(page.getByText('Success!').isHidden())
+    {
+   await page.locator("#small-box").dragTo(page.locator(".large-box "));
+   await page.waitForTimeout(4000)
+  // await expect.soft(page.locator('//div[@class="large-box inside"]')).toBeVisible();
+    await expect.soft(page.getByText('Success!')).toBeVisible();
+    await page.waitForTimeout(4000)
+    }
  });
 
 
- // test.beforeEach(async () => {});
+ test("Advance Drag and drop", async ({ page }) => {
+   await page.goto("https://commitquality.com/practice-drag-and-drop");
+   await page.waitForTimeout(4000)
+   await page.locator("#small-box").hover();
+   await page.waitForTimeout(4000)
+   await page.mouse.down();
+   await page.waitForTimeout(4000)
+   await page.locator(".large-box ").hover();
+   await page.waitForTimeout(4000)
+   await page.mouse.up();
+   await page.waitForTimeout(4000)
+  
+ });
+
+ test("Basic Drag and drop 3", async ({ page }) => {
+  await page.goto("https://commitquality.com/practice-drag-and-drop");
+ await page.waitForTimeout(4000)
+   if(page.getByText('Success!').isHidden())
+   {
+  await page.locator("#small-box").dragTo(page.locator(".large-box "));
+  await page.waitForTimeout(4000)
+ // await expect.soft(page.locator('//div[@class="large-box inside"]')).toBeVisible();
+   await expect.soft(page.getByText('Success!')).toBeVisible();
+   await page.waitForTimeout(4000)
+   }
+});
 
 
- for (let i = 0; i < loginData.length; i++) {
-   test(`Test Case ${i + 1} `, async () => {
-     // Navigate to the form page
-     await regPage.goto("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
-
-     // Fill in the "First Name" field using getByRole
-     await regPage
-       .getByRole("textbox", { name: "First Name" })
-       .fill(loginData[i].FirstName);
-
-     await regPage
-       .getByRole("textbox", { name: "Last Name" })
-       .fill(loginData[i].LastName);
-   
-     await regPage.waitForTimeout(1000);
-
-     // Additional assertions or actions can be performed here
-
-    /// page2 
-
-    // context2 = await browser.newContext();
-    // regPage2 = await context2.newPage();
-    // await regPage2.goto("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
-
-    // // Fill in the "First Name" field using getByRole
-    // await regPage2
-    //   .getByRole("textbox", { name: "First Name" })
-    //   .fill(loginData[i+1].FirstName);
-
-    // await regPage2
-    //   .getByRole("textbox", { name: "Last Name" })
-    //   .fill(loginData[i+1].LastName);
-
-   });
- }
+test("Advance Drag and drop 4", async ({ page }) => {
+  await page.goto("https://commitquality.com/practice-drag-and-drop");
+  await page.waitForTimeout(4000)
+  await page.locator("#small-box").hover();
+  await page.waitForTimeout(4000)
+  await page.mouse.down();
+  await page.waitForTimeout(4000)
+  await page.locator(".large-box ").hover();
+  await page.waitForTimeout(4000)
+  await page.mouse.up();
+  await page.waitForTimeout(4000)
+ 
+});
 });

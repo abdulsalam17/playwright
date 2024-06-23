@@ -1,30 +1,41 @@
-const { test, expect, chromium } = require('@playwright/test')
-
-import logindata from "..//data/login"
-
-test.describe("D1", async () => {
-
-    let browser;
-    let context;
-    let loginpage;
-
-    test.beforeAll('beforeall', async () => {
-
-        browser = await chromium.launch({ headless: false })
-        context = await browser.newContext()
-        loginpage = await context.newPage()
-
-    })
+const { test, expect } = require('@playwright/test');
+const exp = require('constants');
 
 
-    for (let i = 0; i < logindata.length; i++) {
+test ("Task1", async ({ page }) => {
 
-        test(`${i}`, async () => {
+    await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8');
+    // await expect(page).toHaveTitle('Your Store');
+    // await page.getByRole('button', { name: /Mega Menu/ }).hover()
 
-            await loginpage.goto('https://ecommerce-playground.lambdatest.io/index.php?route=account/register')
-        })
-        await loginpage.getByRole('textbox', {name:'First Name'}).click()
-        await loginpage.getByRole('textbox', {name:'First Name'}).fill(logindata[i].username)
-    }
-    
+    // await page.getByRole('listitem')
+    //     .filter({ hasText: /Apple/ })
+    //     .getByRole('link', { name: 'Apple', exact: true })
+    //     .click()
+
+    await page.locator('#input-limit-212433').selectOption('25')
+    const applepageitems = await page.locator('//div[@class="product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"]')
+    await page.waitForTimeout(1500)
+    let count1=await applepageitems.count()
+    console.log(count1)
+
+
+
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
