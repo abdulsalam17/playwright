@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import moment from "moment";
 
 
@@ -62,10 +62,11 @@ await selectDate(27, "June 2024");
 
 
     // let dateToSelect: string = "May 2019";
-    const current= moment().format('MMMM YYYY')
+  
 
     // Fixed the code by passing current month in isBefore() method
-     const thisMonth = moment(dateToSelect, "MMMM YYYY").isBefore(current);
+    const current= moment().format('MMMM YYYY')
+    const thisMonth = moment(dateToSelect, "MMMM YYYY").isBefore(current);
 
     console.log("this month? " + thisMonth);
     console.log("date is ", date);
@@ -84,7 +85,8 @@ await selectDate(27, "June 2024");
     }
     await page.waitForTimeout(2000);
     await page.click(`//td[@class='day'][text()='${date}']`);
-    await page
+
+       await page
       .getByRole("heading", { name: "Bootstrap Date Pickers Demo" })
       .click();
 
