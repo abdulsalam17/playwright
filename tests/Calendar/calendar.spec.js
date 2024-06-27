@@ -31,6 +31,8 @@ test.only("Calendar - Date selection using moment", async ({ page }) => {
     .getByRole("heading", { name: "Bootstrap Date Pickers Demo" })
     .click();
 
+
+    // Another way to fix the issue is clear the End date first
   // await page.locator("//input[@placeholder='End date']").clear()
   await page.click("//input[@placeholder='End date']");
 
@@ -40,7 +42,6 @@ test.only("Calendar - Date selection using moment", async ({ page }) => {
 
   //await selectDate(22, "November 2025");
 await selectDate(27, "June 2024");
-
 
   await page.waitForTimeout(1000);
   await page
@@ -62,6 +63,8 @@ await selectDate(27, "June 2024");
 
     // let dateToSelect: string = "May 2019";
     const current= moment().format('MMMM YYYY')
+
+    // Fixed the code by passing current month in isBefore() method
      const thisMonth = moment(dateToSelect, "MMMM YYYY").isBefore(current);
 
     console.log("this month? " + thisMonth);
@@ -73,7 +76,7 @@ await selectDate(27, "June 2024");
      while ((await mmYY.textContent()) != dateToSelect) {
 
       if (thisMonth) {
-                      await prev.click();
+                await prev.click();
               } 
       else {
         await next.click();
