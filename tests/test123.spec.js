@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 
-test.describe.serial("Drop Down Test Suite", () => {
+test.describe("Drop Down Test Suite", () => {
 
  test("Basic Drag and drop", async ({ page }) => {
    await page.goto("https://commitquality.com/practice-drag-and-drop");

@@ -159,7 +159,6 @@ class ApplePageclass extends LoginPage {
         await expect(this.applepageitems).toHaveCount(countitems)
         await this.limitdropdown.selectOption('15')
         await this.page.waitForTimeout(1500)
-
          }
 
     /////////// Assignment #22 ////////
@@ -187,7 +186,6 @@ class ApplePageclass extends LoginPage {
             await expect(await this.applepageitems).toHaveCount(count)
 
         }
-
     }
 
     async NavigatetoNextpage() {
