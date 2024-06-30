@@ -61,10 +61,8 @@ await selectDate(27, "June 2024");
     );
 
 
-    // let dateToSelect: string = "May 2019";
-  
-
     // Fixed the code by passing current month in isBefore() method
+
     const current= moment().format('MMMM YYYY')
     const thisMonth = moment(dateToSelect, "MMMM YYYY").isBefore(current);
 
