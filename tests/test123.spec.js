@@ -33,7 +33,7 @@ test.describe("Drop Down Test Suite", () => {
 
  test("Basic Drag and drop 3", async ({ page }) => {
   await page.goto("https://commitquality.com/practice-drag-and-drop");
- await page.waitForTimeout(4000)
+ //await page.waitForTimeout(4000)
    if(page.getByText('Success!').isHidden())
    {
   await page.locator("#small-box").dragTo(page.locator(".large-box "));
