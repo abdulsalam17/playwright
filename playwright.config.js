@@ -11,7 +11,7 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
- // globalSetup:'./global-setup',
+ globalSetup:'./global-setup',
   testDir:'./tests',
  // testMatch: ["**\*.js"],
   /* Run tests in files in parallel */
@@ -32,7 +32,7 @@ module.exports = defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     headless: false,
-    storageState:'./LoginAuth.json',
+   // storageState:'./LoginAuth.json',
   },
 
   /* Configure projects for major browsers */
