@@ -29,7 +29,7 @@ class LoginPage {
         await this.Password.fill(logindata[0].password)
         await this.LoginButton.click()
         //  await expect(this.Accountinfo).toBeVisible()
-
+        await this.page.context().storageState({path:"./LoginAuth.json"})
     }
 }
 

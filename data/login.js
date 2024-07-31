@@ -2,7 +2,8 @@ module.exports = [{
 
     URL: "https://ecommerce-playground.lambdatest.io/",
     username: "abdul422@gmail.com",
-    password: "123456"
+    password: "123456",
+    loginURL: "https://ecommerce-playground.lambdatest.io/index.php?route=account/login",
 
 },
 

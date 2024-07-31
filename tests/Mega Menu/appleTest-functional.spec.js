@@ -1,6 +1,5 @@
 const { test, chromium } = require("@playwright/test")
 
-import logindata from "../../data/login"
 import applepage from "../../pages/ApplePage"
 
 test.describe('Login Test Suite', async () => {
@@ -15,7 +14,8 @@ test.describe('Login Test Suite', async () => {
         context = await browser.newContext();
         loginpage = await context.newPage();
         Applepage = new applepage(loginpage)
-        await Applepage.login()
+     //   await Applepage.login()
+        await loginpage.goto('https://ecommerce-playground.lambdatest.io/')
         await Applepage.AppleSection()
     })
 

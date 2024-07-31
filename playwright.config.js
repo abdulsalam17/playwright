@@ -1,21 +1,30 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
+import dotenv from "dotenv"
+dotenv.config({
+  path:"./.env",
+  override: true
+  }); 
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+//require('dotenv').config();
+
+
+
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
- globalSetup:'./global-setup',
+ //globalSetup:'./global-setup',
   testDir:'./tests',
  // testMatch: ["**\*.js"],
   /* Run tests in files in parallel */
-     fullyParallel: true,
+   //  fullyParallel: true,
   // /* Fail the build on CI if you accidentally left test.only in the source code. */
   // forbidOnly: !!process.env.CI,
   // /* Retry on CI only */
@@ -32,6 +41,7 @@ module.exports = defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     headless: false,
+    timeout: 120000
    // storageState:'./LoginAuth.json',
   },
 

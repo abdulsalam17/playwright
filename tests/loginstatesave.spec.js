@@ -1,6 +1,6 @@
 const { test, chromium, expect } = require("@playwright/test")
 
-test('LoginState Save test', async ({ page }) => {
+test.only('LoginState Save test', async ({ page }) => {
 
     await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=account/login')
     await page.waitForTimeout(4000)

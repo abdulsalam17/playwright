@@ -1,4 +1,5 @@
 const {expect, chromium} = require('@playwright/test');
+import logindata from "../project1/data/login"
 
  async function globalsetup()
 {
@@ -7,13 +8,13 @@ const {expect, chromium} = require('@playwright/test');
     const context= await browser.newContext();
     const loginpage=await context.newPage();
 
-    await loginpage.goto('https://ecommerce-playground.lambdatest.io/index.php?route=account/login')
+    await loginpage.goto(logindata[0].loginURL)
 
     await loginpage.getByPlaceholder('E-Mail Address').click()
-    await loginpage.getByPlaceholder('E-Mail Address').fill('abdul128@gmail.com')
+    await loginpage.getByPlaceholder('E-Mail Address').fill(logindata[0].username)
 
     await loginpage.getByPlaceholder(/Password/, { exact: true }).click()
-    await loginpage.getByPlaceholder(/Password/, { exact: true }).fill('123456')
+    await loginpage.getByPlaceholder(/Password/, { exact: true }).fill(logindata[0].password)
 
     await loginpage.getByRole('button', { name: 'Login' }).click()
 
